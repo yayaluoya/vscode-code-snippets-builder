@@ -1,0 +1,14 @@
+#忽略所有node的包文件
+node_modules/
+
+package-lock.json
+
+#忽略所有的密钥
+.ssh/
+
+# 一些脚本目录
+./.node
+# 源代码目录
+./src/
+# 测试目录
+./test/

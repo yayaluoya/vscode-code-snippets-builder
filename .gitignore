@@ -128,3 +128,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# npm的版本锁定文件
+package-lock.json
+
+# 包目录
+./dist/

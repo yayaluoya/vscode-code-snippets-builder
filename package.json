@@ -1,0 +1,28 @@
+{
+  "name": "vscode-code-snippets-builder",
+  "version": "0.0.1",
+  "description": "vscode的代码片段生成器，非常方便的生成和管理项目中常用的代码片段。",
+  "main": "index.js",
+  "bin": {
+    "vcsb": "./dist/__bin/index.js",
+    "vscode-code-snippets-builder": "./dist/__bin/index.js"
+  },
+  "scripts": {
+    "rm-dist": "node ./.node/clearDist.js",
+    "tsc-w": "tsc -w",
+    "npm-publish": "npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yayaluoya/vscode-code-snippets-builder.git"
+  },
+  "author": "https://github.com/yayaluoya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yayaluoya/vscode-code-snippets-builder/issues"
+  },
+  "homepage": "https://github.com/yayaluoya/vscode-code-snippets-builder#readme",
+  "dependencies": {
+    "yayaluoya-tool": "1.8.0"
+  }
+}
