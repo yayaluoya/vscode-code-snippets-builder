@@ -17,3 +17,8 @@ module.exports = getConfig(async () => {
         //
     }
 })
+
+/**
+ * 关于vscode代码片段的文档
+ * https://code.visualstudio.com/docs/editor/userdefinedsnippets
+ */

@@ -6,6 +6,7 @@ import { getComPath } from "./utils/getComPath";
 import { glob } from 'glob'
 import { getAbsolute } from "./utils/getAbsolute";
 import { packageJSON } from "./packageJSON";
+import { JSONPar } from "yayaluoya-tool/dist/JSONPar";
 
 /**
  * 开始
@@ -108,12 +109,14 @@ function byStrToItem(str: string, filePath: string, prefix: ArraifyT<string> = [
     let filePrefixs = filePaths.splice(0, filePaths.length - 1);
     let fileName = filePaths[filePaths.length - 1];
     let fileNameReg = fileName.match(/^(\w+)((?:\.\w+)+)$/);
+    let otherReg = (strReg?.[2] || '').match(/^(?:[\n\r]*)([^\n\r]+)(?:[\n\r]+([\s\S]*))?$/);
     return {
         name: [...prefixs, ...filePrefixs, fileNameReg[1]].join('-'),
         scope: fileNameReg[2].split('.').filter(Boolean),
         prefix: [...prefixs, ...filePrefixs, fileNameReg[1]].join('-'),
-        body: (strReg[1] || '').split(/\n\r|\r\n|\n|\r/g),
-        description: strReg[2] || '',
+        body: (strReg?.[1] || '').split(/\n\r|\r\n|\n|\r/g),
+        description: otherReg?.[1] || '',
         isFileTemplate: false,
+        ...JSONPar(otherReg?.[2] || '', {}),
     };
 }
