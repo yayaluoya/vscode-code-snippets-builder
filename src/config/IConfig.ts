@@ -2,15 +2,15 @@
  * 配置文件
  */
 export interface IConfig {
-    /** 打包路径 */
+    /** 模板路径列表 */
     list: {
         /** 触发词 */
         prefix?: ArraifyT<string>,
         /** 路径 */
         path: string,
     }[],
-    /** 监听相关 */
-    watch: {},
+    /** 是否监听 */
+    watch: boolean,
 }
 
 /**
@@ -20,6 +20,6 @@ export interface IConfig {
 export function getDefConfigInfo(): IConfig {
     return {
         list: [],
-        watch: {},
+        watch: false,
     };
 }

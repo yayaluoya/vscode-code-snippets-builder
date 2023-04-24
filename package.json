@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/yayaluoya/vscode-code-snippets-builder#readme",
   "dependencies": {
+    "chokidar": "^3.5.3",
     "glob": "^10.2.2",
     "yayaluoya-tool": "1.8.0"
   }

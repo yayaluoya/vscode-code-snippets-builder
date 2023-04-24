@@ -23,5 +23,6 @@ module.exports = getConfig(async () => {
                 path: './a.js.json',
             },
         ],
+        watch: true,
     }
 })

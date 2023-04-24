@@ -14,6 +14,6 @@ module.exports = getConfig(async () => {
      * 返回配置信息
      */
     return {
-        list: [1, 2, 3],
+        list: [],
     }
 })

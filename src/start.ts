@@ -7,6 +7,9 @@ import { glob } from 'glob'
 import { getAbsolute } from "./utils/getAbsolute";
 import { packageJSON } from "./packageJSON";
 import { JSONPar } from "yayaluoya-tool/dist/JSONPar";
+import chokidar from "chokidar";
+import chalk from "chalk";
+import { createThrottleFun } from "yayaluoya-tool/dist/throttleAntiShake";
 
 /**
  * 开始
@@ -17,7 +20,19 @@ export function start(config: IConfig) {
     // console.dir(config, {
     //     depth: null,
     // });
-    build(config.list);
+    let f = createThrottleFun(() => {
+        build(config.list);
+        console.log(chalk.green(`打包完成`), new Date().toLocaleString());
+    }, 500);
+    if (config.watch) {
+        console.log(chalk.yellow('开始监听:'));
+        chokidar.watch(config.list.map(_ => _.path)).on('all', async (event, _) => {
+            console.log(chalk.gray(`文件@${_}`), chalk.yellow(event), new Date().toLocaleString().split(' ')[1]);
+            f();
+        });
+    } else {
+        f();
+    }
 }
 
 /**
@@ -91,8 +106,6 @@ function build(list: IConfig['list']) {
         };
         return a;
     }, {}), undefined, 4));
-    //
-    console.log(`已经生成模板文件@${path2}`);
 }
 
 /**
