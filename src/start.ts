@@ -121,7 +121,7 @@ function byStrToItem(str: string, filePath: string, prefix: ArraifyT<string> = [
     let filePaths = getComPath(filePath).split('/').filter(Boolean);
     let filePrefixs = filePaths.splice(0, filePaths.length - 1);
     let fileName = filePaths[filePaths.length - 1];
-    let fileNameReg = fileName.match(/^(\w+)((?:\.\w+)+)$/);
+    let fileNameReg = fileName.match(/^([^.]+)((?:\.\w+)+)$/);
     let otherReg = (strReg?.[2] || '').match(/^(?:[\n\r]*)([^\n\r]+)(?:[\n\r]+([\s\S]*))?$/);
     return {
         name: [...prefixs, ...filePrefixs, fileNameReg[1]].join('-'),
