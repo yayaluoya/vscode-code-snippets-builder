@@ -4,8 +4,8 @@
 export interface IConfig {
     /** 打包路径 */
     list: {
-        /** 命名空间 */
-        namespace: string,
+        /** 触发词 */
+        prefix?: ArraifyT<string>,
         /** 路径 */
         path: string,
     }[],

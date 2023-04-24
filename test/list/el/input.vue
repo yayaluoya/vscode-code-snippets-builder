@@ -1,0 +1,1 @@
+<el-input v-module="$1"></el-input>

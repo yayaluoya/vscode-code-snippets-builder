@@ -1,0 +1,75 @@
+{
+    "a": {
+        "scope": [
+            "js",
+            "ts",
+            "txt"
+        ],
+        "prefix": "a",
+        "body": [
+            "console.log('一个js文件的测试');"
+        ],
+        "description": "        这是一个js的测试模板",
+        "isFileTemplate": false
+    },
+    "vue-setUp": {
+        "scope": [
+            "vue"
+        ],
+        "prefix": "vue-setUp",
+        "body": [
+            "setUp(ctx,proxy){",
+            "    console.log('哈哈哈哈');",
+            "}"
+        ],
+        "description": "",
+        "isFileTemplate": false
+    },
+    "vue-index": {
+        "scope": [
+            "vue"
+        ],
+        "prefix": "vue-index",
+        "body": [
+            "<template>",
+            "  <div>一个vue的模板文件</div>",
+            "</template>",
+            "",
+            "<script>",
+            "export default {};",
+            "</script>",
+            "",
+            "<style>",
+            "</style>"
+        ],
+        "description": "",
+        "isFileTemplate": false
+    },
+    "el-input": {
+        "scope": [
+            "vue"
+        ],
+        "prefix": "el-input",
+        "body": [
+            "<el-input v-module=\"$1\"></el-input>"
+        ],
+        "description": "",
+        "isFileTemplate": false
+    },
+    "my-a": {
+        "scope": [
+            "js",
+            "json"
+        ],
+        "prefix": "my-a",
+        "body": [
+            "console.log('一个js文件的测试');",
+            "",
+            "hhhh",
+            "",
+            "wofa;sdkfa;sdkf;"
+        ],
+        "description": "",
+        "isFileTemplate": false
+    }
+}

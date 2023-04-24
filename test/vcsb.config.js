@@ -14,6 +14,14 @@ module.exports = getConfig(async () => {
      * 返回配置信息
      */
     return {
-        list: [1, 2],
+        list: [
+            {
+                path: './list',
+            },
+            {
+                prefix: 'my',
+                path: './a.js.json',
+            },
+        ],
     }
 })
