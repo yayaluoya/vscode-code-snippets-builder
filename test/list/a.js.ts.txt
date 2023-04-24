@@ -9,5 +9,5 @@ console.log('一个js文件的测试');
 
 {
         "isFileTemplate": false,
-        "fasdfa": "fasdffsadfasdasdfsdfasfsadfafasdfafasdfafsdf"
+        "fasdfa": "哈哈哈发送到发的"
 }

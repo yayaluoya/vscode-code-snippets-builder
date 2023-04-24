@@ -7,8 +7,8 @@ package-lock.json
 .ssh/
 
 # 一些脚本目录
-./.node
+.node
 # 源代码目录
-./src/
+src/
 # 测试目录
-./test/
+test/
