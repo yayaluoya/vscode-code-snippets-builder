@@ -1,10 +1,6 @@
 {
     "a": {
-        "scope": [
-            "js",
-            "ts",
-            "txt"
-        ],
+        "scope": "javascript,typescript,text",
         "prefix": "a",
         "body": [
             "console.log('一个js文件的测试');"
@@ -14,22 +10,17 @@
         "fasdfa": "哈哈哈发送到发的"
     },
     "vue-setUp": {
-        "scope": [
-            "vue"
-        ],
+        "scope": "vue",
         "prefix": "vue-setUp",
         "body": [
             "setUp(ctx,proxy){",
             "    console.log('哈哈哈哈');",
             "}"
         ],
-        "description": "",
-        "isFileTemplate": false
+        "description": ""
     },
     "vue-index": {
-        "scope": [
-            "vue"
-        ],
+        "scope": "vue",
         "prefix": "vue-index",
         "body": [
             "<template>",
@@ -43,25 +34,26 @@
             "<style>",
             "</style>"
         ],
-        "description": "",
-        "isFileTemplate": false
+        "description": ""
+    },
+    "js-log": {
+        "scope": "typescript,javascript",
+        "prefix": "js-log",
+        "body": [
+            "console.log($0);"
+        ],
+        "description": "    js的控制台打印消息的简写"
     },
     "el-input": {
-        "scope": [
-            "vue"
-        ],
+        "scope": "vue",
         "prefix": "el-input",
         "body": [
             "<el-input v-module=\"$1\"></el-input>"
         ],
-        "description": "",
-        "isFileTemplate": false
+        "description": ""
     },
     "my-a": {
-        "scope": [
-            "js",
-            "json"
-        ],
+        "scope": "javascript,json",
         "prefix": "my-a",
         "body": [
             "console.log('一个js文件的测试');",
@@ -70,7 +62,6 @@
             "",
             "wofa;sdkfa;sdkf;"
         ],
-        "description": "",
-        "isFileTemplate": false
+        "description": ""
     }
 }

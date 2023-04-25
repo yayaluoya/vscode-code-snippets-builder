@@ -24,6 +24,7 @@ import { start } from "../start";
             console.log(chalk.green('   -h --help ') + chalk.gray('查看所有的命令和帮助信息'));
             console.log(chalk.green('   -i --init ') + chalk.gray('在当前执行目录下生成默认配置文件'));
             console.log(chalk.green('   -c --config <path> ') + chalk.gray('用指定配置文件来运行'));
+            console.log(chalk.green('   -w --watch ') + chalk.gray('监听'));
             console.log('----');
             console.log(chalk.gray(`快捷命令@ ${packageJSON.name.split('-').map(_ => _[0]).join('')}`));
             break;
@@ -48,12 +49,17 @@ import { start } from "../start";
         //开始
         default:
             const config = getDefConfigInfo();
-            //合并配置
+            //合并配置文件中的配置
             if (Boolean(opts.config)) {
-                ObjectUtils.merge(config, await getConfig(getAbsolute(opts.config), '配置文件导入错误，将以默认配置运行!'));
+                ObjectUtils.merge(config, await getConfig(getAbsolute(opts.config), '指定配置文件导入错误，将以默认配置运行!'));
             } else {
                 ObjectUtils.merge(config, await getDefConfig());
             }
+            // 合并命令行参数
+            if (typeof opts.watch != 'undefined') {
+                config.watch = opts.watch;
+            }
+            //开始
             start(config);
     }
 })();

@@ -24,5 +24,10 @@ module.exports = getConfig(async () => {
             },
         ],
         watch: true,
+        suffixToScope: (str) => {
+            return {
+                txt: 'text',
+            }[str];
+        }
     }
 })

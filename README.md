@@ -33,12 +33,17 @@ vscode-code-snippets-builder的所有命令😀:
     /** 模板路径列表 */
     list: {
         /** 触发词 */
-        prefix?: string | string[],
+        prefix?: ArraifyT<string>,
         /** 路径 */
         path: string,
     }[],
     /** 是否监听 */
-    watch: boolean,
+    watch?: boolean,
+    /**
+     * 通过文件后缀获取文件作用域，由于本工具只实现了前端文件的后缀映射，其它需求见下面文档
+     * https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers
+     */
+    suffixToScope?: (suffix: string) => string;
 }
 ```
 

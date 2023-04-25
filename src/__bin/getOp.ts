@@ -10,6 +10,8 @@ export interface IOp extends IOp_ {
     init: boolean;
     /** 按照指定配置文件运行 */
     config: string;
+    /** 是否监听 */
+    watch: boolean;
 }
 
 /**
@@ -19,6 +21,7 @@ export function getOp() {
     return getCmdOp<IOp>((program) => {
         program.option('-h --help')
             .option('-i --init')
+            .option('-w --watch')
             .option('-c --config <path>')
     });
 }

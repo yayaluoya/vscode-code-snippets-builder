@@ -10,7 +10,9 @@ export interface IConfig {
         path: string,
     }[],
     /** 是否监听 */
-    watch: boolean,
+    watch?: boolean,
+    /** 通过文件后缀获取文件作用域 */
+    suffixToScope?: (suffix: string) => string;
 }
 
 /**
@@ -20,6 +22,5 @@ export interface IConfig {
 export function getDefConfigInfo(): IConfig {
     return {
         list: [],
-        watch: false,
     };
 }

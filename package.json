@@ -1,6 +1,6 @@
 {
   "name": "vscode-code-snippets-builder",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "vscode的代码片段生成器，非常方便的生成和管理项目中常用的代码片段。",
   "main": "index.js",
   "bin": {
@@ -25,6 +25,7 @@
   "dependencies": {
     "chokidar": "^3.5.3",
     "glob": "^10.2.2",
+    "moment": "^2.29.4",
     "yayaluoya-tool": "1.8.0"
   }
 }
