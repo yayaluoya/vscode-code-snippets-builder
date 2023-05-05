@@ -7,7 +7,7 @@
         ],
         "description": ""
     },
-    "a": {
+    "这是一个js的测试模板": {
         "scope": "javascript,typescript,text",
         "prefix": "a",
         "body": [
@@ -44,7 +44,7 @@
         ],
         "description": ""
     },
-    "js-log": {
+    "js的控制台打印消息的简写": {
         "scope": "typescript,javascript",
         "prefix": "js-log",
         "body": [

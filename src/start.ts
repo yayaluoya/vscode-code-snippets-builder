@@ -40,8 +40,6 @@ export function start(config: IConfig) {
  * 项目
  */
 interface Item {
-    /** 代码段名称 */
-    name: string;
     /** 作用域 */
     scope: string;
     /** 
@@ -105,9 +103,8 @@ function build(list: IConfig['list'], config?: IConfig) {
     //写入文件
     let path2 = path.join(path1, `./${packageJSON.name}.code-snippets`);
     fs.writeFileSync(path2, JSON.stringify(itemList.reduce((a, b) => {
-        a[b.name] = {
+        a[b.description.replace(/^\s*|\s*$/, '') || b.prefix] = {
             ...b,
-            name: undefined,
         };
         return a;
     }, {}), undefined, 4));
@@ -132,7 +129,6 @@ function byStrToItem(str: string, filePath: string, prefix: ArraifyT<string> = [
     /** 文件名分组 */
     let fileNameReg = filePaths[filePaths.length - 1].match(/^([^.]+)((?:\.\w+)+)?$/);
     return {
-        name: [...prefixs, ...filePathPrefixs, fileNameReg?.[1]].filter(Boolean).join('-'),
         scope: (fileNameReg?.[2] || '').split('.').filter(Boolean).map((s) => suffixToScope(s, config.suffixToScope)).join(','),
         prefix: [...prefixs, ...filePathPrefixs, fileNameReg?.[1]].filter(Boolean).join('-'),
         body: (strReg?.[1] || '').split(/\n\r|\r\n|\n|\r/g),
