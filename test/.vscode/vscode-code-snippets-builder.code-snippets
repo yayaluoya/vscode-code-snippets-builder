@@ -1,4 +1,12 @@
 {
+    "c": {
+        "scope": "",
+        "prefix": "c",
+        "body": [
+            "哈哈哈"
+        ],
+        "description": ""
+    },
     "a": {
         "scope": "javascript,typescript,text",
         "prefix": "a",

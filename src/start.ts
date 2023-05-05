@@ -130,7 +130,7 @@ function byStrToItem(str: string, filePath: string, prefix: ArraifyT<string> = [
     /** 文件路径触发词列表 */
     let filePathPrefixs = filePaths.splice(0, filePaths.length - 1);
     /** 文件名分组 */
-    let fileNameReg = filePaths[filePaths.length - 1].match(/^([^.]+)((?:\.\w+)+)$/);
+    let fileNameReg = filePaths[filePaths.length - 1].match(/^([^.]+)((?:\.\w+)+)?$/);
     return {
         name: [...prefixs, ...filePathPrefixs, fileNameReg?.[1]].filter(Boolean).join('-'),
         scope: (fileNameReg?.[2] || '').split('.').filter(Boolean).map((s) => suffixToScope(s, config.suffixToScope)).join(','),
