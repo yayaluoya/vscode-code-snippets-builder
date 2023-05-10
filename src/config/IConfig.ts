@@ -5,19 +5,19 @@ export interface IConfig {
     /** 模板路径列表 */
     list: {
         /** 触发词 */
-        prefix?: ArraifyT<string>,
+        prefix?: ArraifyT<string>;
         /** 路径 */
-        path: string,
-    }[],
+        path: string;
+    }[];
     /** 是否监听 */
-    watch?: boolean,
+    watch?: boolean;
     /** 通过文件后缀获取文件作用域 */
     suffixToScope?: (suffix: string) => string;
 }
 
 /**
  * 获取默认配置信息
- * @returns 
+ * @returns
  */
 export function getDefConfigInfo(): IConfig {
     return {

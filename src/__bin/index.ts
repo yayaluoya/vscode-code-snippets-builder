@@ -1,14 +1,14 @@
 #!/usr/bin/env node
-import fs from "fs";
-import chalk from "chalk";
-import { ObjectUtils } from "yayaluoya-tool/dist/obj/ObjectUtils";
-import { getOp } from "./getOp";
-import { configTemStr, defConfigUrl, getConfig, getDefConfig } from "../config/getConfig";
-import { packageJSON } from "../packageJSON";
-import { cmdSecondCom } from "yayaluoya-tool/dist/node/cmdSecondCom";
-import { getAbsolute } from "../utils/getAbsolute";
-import { getDefConfigInfo } from "../config/IConfig";
-import { start } from "../start";
+import fs from 'fs';
+import chalk from 'chalk';
+import { ObjectUtils } from 'yayaluoya-tool/dist/obj/ObjectUtils';
+import { getOp } from './getOp';
+import { configTemStr, defConfigUrl, getConfig, getDefConfig } from '../config/getConfig';
+import { packageJSON } from '../packageJSON';
+import { cmdSecondCom } from 'yayaluoya-tool/dist/node/cmdSecondCom';
+import { getAbsolute } from '../utils/getAbsolute';
+import { getDefConfigInfo } from '../config/IConfig';
+import { start } from '../start';
 
 (async () => {
     /** 命令行选项 */
@@ -26,18 +26,31 @@ import { start } from "../start";
             console.log(chalk.green('   -c --config <path> ') + chalk.gray('用指定配置文件来运行'));
             console.log(chalk.green('   -w --watch ') + chalk.gray('监听'));
             console.log('----');
-            console.log(chalk.gray(`快捷命令@ ${packageJSON.name.split('-').map(_ => _[0]).join('')}`));
+            console.log(
+                chalk.gray(
+                    `快捷命令@ ${packageJSON.name
+                        .split('-')
+                        .map((_) => _[0])
+                        .join('')}`,
+                ),
+            );
             break;
         case Boolean(opts.init):
             let p = Promise.resolve();
-            if (fs.statSync(defConfigUrl, {
-                throwIfNoEntry: false,
-            })?.isFile()) {
-                p = cmdSecondCom(`已经存在配置文件了${defConfigUrl}，是否覆盖 是:y/Y 输入其他字符取消: `).then((input) => {
-                    if (!/^y$/i.test(input)) {
-                        throw '';
-                    }
-                })
+            if (
+                fs
+                    .statSync(defConfigUrl, {
+                        throwIfNoEntry: false,
+                    })
+                    ?.isFile()
+            ) {
+                p = cmdSecondCom(`已经存在配置文件了${defConfigUrl}，是否覆盖 是:y/Y 输入其他字符取消: `).then(
+                    (input) => {
+                        if (!/^y$/i.test(input)) {
+                            throw '';
+                        }
+                    },
+                );
             }
             p.then(() => {
                 fs.writeFileSync(defConfigUrl, configTemStr);
@@ -51,7 +64,10 @@ import { start } from "../start";
             const config = getDefConfigInfo();
             //合并配置文件中的配置
             if (Boolean(opts.config)) {
-                ObjectUtils.merge(config, await getConfig(getAbsolute(opts.config), '指定配置文件导入错误，将以默认配置运行!'));
+                ObjectUtils.merge(
+                    config,
+                    await getConfig(getAbsolute(opts.config), '指定配置文件导入错误，将以默认配置运行!'),
+                );
             } else {
                 ObjectUtils.merge(config, await getDefConfig());
             }

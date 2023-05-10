@@ -1,20 +1,20 @@
-import { IConfig } from "./config/IConfig";
-import fs from "fs";
-import path from "path";
-import { ArrayUtils } from "yayaluoya-tool/dist/ArrayUtils";
-import { getComPath } from "./utils/getComPath";
-import { glob } from 'glob'
-import { getAbsolute } from "./utils/getAbsolute";
-import { packageJSON } from "./packageJSON";
-import { JSONPar } from "yayaluoya-tool/dist/JSONPar";
-import chokidar from "chokidar";
-import chalk from "chalk";
-import { createThrottleFun } from "yayaluoya-tool/dist/throttleAntiShake";
-import moment from "moment";
+import { IConfig } from './config/IConfig';
+import fs from 'fs';
+import path from 'path';
+import { ArrayUtils } from 'yayaluoya-tool/dist/ArrayUtils';
+import { getComPath } from './utils/getComPath';
+import { glob } from 'glob';
+import { getAbsolute } from './utils/getAbsolute';
+import { packageJSON } from './packageJSON';
+import { JSONPar } from 'yayaluoya-tool/dist/JSONPar';
+import chokidar from 'chokidar';
+import chalk from 'chalk';
+import { createThrottleFun } from 'yayaluoya-tool/dist/throttleAntiShake';
+import moment from 'moment';
 
 /**
  * 开始
- * @param config 
+ * @param config
  */
 export function start(config: IConfig) {
     // console.log('开始');
@@ -27,7 +27,7 @@ export function start(config: IConfig) {
     }, 500);
     if (config.watch) {
         console.log(chalk.hex('#e11d74')('开始:'));
-        chokidar.watch(config.list.map(_ => _.path)).on('all', async (event, _) => {
+        chokidar.watch(config.list.map((_) => _.path)).on('all', async (event, _) => {
             console.log(chalk.yellow(event), chalk.gray(_), moment().format('HH:mm:ss'));
             f();
         });
@@ -42,9 +42,9 @@ export function start(config: IConfig) {
 interface Item {
     /** 作用域 */
     scope: string;
-    /** 
+    /**
      * 在智能感知中显示代码段的触发词
-     * 格式为a-b-c 
+     * 格式为a-b-c
      * 子字符串匹配是在前缀上执行的，因此在这种情况下，“fc”可以匹配“for-const”。
      * */
     prefix: string;
@@ -59,6 +59,7 @@ interface Item {
 /**
  * 打包
  * @param list 打包列表
+ * @param config
  */
 function build(list: IConfig['list'], config?: IConfig) {
     let itemList: Item[] = [];
@@ -66,31 +67,23 @@ function build(list: IConfig['list'], config?: IConfig) {
         filePath = getComPath(getAbsolute(filePath));
         let pathStat = fs.statSync(filePath, {
             throwIfNoEntry: false,
-        })
-        if (!pathStat) { break; }
-        if (pathStat.isFile()) {
-            itemList.push(byStrToItem(
-                fs.readFileSync(filePath).toString(),
-                path.basename(filePath),
-                prefix,
-                config
-            )
-            );
+        });
+        if (!pathStat) {
+            break;
         }
-        else if (pathStat.isDirectory()) {
+        if (pathStat.isFile()) {
+            itemList.push(byStrToItem(fs.readFileSync(filePath).toString(), path.basename(filePath), prefix, config));
+        } else if (pathStat.isDirectory()) {
             let paths = glob.sync(`${filePath.replace(/\/+$/, '')}/**`, {
                 cwd: filePath,
                 absolute: false,
                 nodir: true,
             });
-            itemList.push(...paths.map(_ => {
-                return byStrToItem(
-                    fs.readFileSync(path.join(filePath, _)).toString(),
-                    _,
-                    prefix,
-                    config
-                )
-            }));
+            itemList.push(
+                ...paths.map((_) => {
+                    return byStrToItem(fs.readFileSync(path.join(filePath, _)).toString(), _, prefix, config);
+                }),
+            );
         }
     }
     //创建目录
@@ -102,12 +95,19 @@ function build(list: IConfig['list'], config?: IConfig) {
     }
     //写入文件
     let path2 = path.join(path1, `./${packageJSON.name}.code-snippets`);
-    fs.writeFileSync(path2, JSON.stringify(itemList.reduce((a, b) => {
-        a[b.description.replace(/^\s*|\s*$/, '') || b.prefix] = {
-            ...b,
-        };
-        return a;
-    }, {}), undefined, 4));
+    fs.writeFileSync(
+        path2,
+        JSON.stringify(
+            itemList.reduce((a, b) => {
+                a[b.description.replace(/^\s*|\s*$/, '') || b.prefix] = {
+                    ...b,
+                };
+                return a;
+            }, {}),
+            undefined,
+            4,
+        ),
+    );
 }
 
 /**
@@ -115,7 +115,8 @@ function build(list: IConfig['list'], config?: IConfig) {
  * @param str 模板内容
  * @param filePath 文件路径，注意相对的，不是绝对的
  * @param prefix 触发词
- * @returns 
+ * @param config
+ * @returns
  */
 function byStrToItem(str: string, filePath: string, prefix: ArraifyT<string> = [], config?: IConfig): Item {
     /** 模板内容分组 */
@@ -129,7 +130,11 @@ function byStrToItem(str: string, filePath: string, prefix: ArraifyT<string> = [
     /** 文件名分组 */
     let fileNameReg = filePaths[filePaths.length - 1].match(/^([^.]+)((?:\.\w+)+)?$/);
     return {
-        scope: (fileNameReg?.[2] || '').split('.').filter(Boolean).map((s) => suffixToScope(s, config.suffixToScope)).join(','),
+        scope: (fileNameReg?.[2] || '')
+            .split('.')
+            .filter(Boolean)
+            .map((s) => suffixToScope(s, config.suffixToScope))
+            .join(','),
         prefix: [...prefixs, ...filePathPrefixs, fileNameReg?.[1]].filter(Boolean).join('-'),
         body: (strReg?.[1] || '').split(/\n\r|\r\n|\n|\r/g),
         description: otherReg?.[1] || '',
@@ -148,68 +153,69 @@ const scopeConfig: {
     /** 后缀列表 */
     suffix: string[];
 }[] = [
-        {
-            language: 'CSS',
-            identifiers: 'css',
-            suffix: ['css'],
-        },
-        {
-            language: 'HTML',
-            identifiers: 'html',
-            suffix: ['html'],
-        },
-        {
-            language: 'JavaScript',
-            identifiers: 'javascript',
-            suffix: ['js'],
-        },
-        {
-            language: 'JavaScript JSX',
-            identifiers: 'javascriptreact',
-            suffix: ['jsx'],
-        },
-        {
-            language: 'JSON',
-            identifiers: 'json',
-            suffix: ['json'],
-        },
-        {
-            language: 'Less',
-            identifiers: 'less',
-            suffix: ['less'],
-        },
-        {
-            language: 'SCSS',
-            identifiers: 'scss',
-            suffix: ['scss'],
-        },
-        {
-            language: 'TypeScript',
-            identifiers: 'typescript',
-            suffix: ['ts'],
-        },
-        {
-            language: 'TypeScript JSX',
-            identifiers: 'typescriptreact',
-            suffix: ['tsx'],
-        },
-        {
-            language: 'Vue',
-            identifiers: 'vue',
-            suffix: ['vue'],
-        },
-        {
-            language: 'XML',
-            identifiers: 'xml',
-            suffix: ['xml'],
-        },
-    ];
+    {
+        language: 'CSS',
+        identifiers: 'css',
+        suffix: ['css'],
+    },
+    {
+        language: 'HTML',
+        identifiers: 'html',
+        suffix: ['html'],
+    },
+    {
+        language: 'JavaScript',
+        identifiers: 'javascript',
+        suffix: ['js'],
+    },
+    {
+        language: 'JavaScript JSX',
+        identifiers: 'javascriptreact',
+        suffix: ['jsx'],
+    },
+    {
+        language: 'JSON',
+        identifiers: 'json',
+        suffix: ['json'],
+    },
+    {
+        language: 'Less',
+        identifiers: 'less',
+        suffix: ['less'],
+    },
+    {
+        language: 'SCSS',
+        identifiers: 'scss',
+        suffix: ['scss'],
+    },
+    {
+        language: 'TypeScript',
+        identifiers: 'typescript',
+        suffix: ['ts'],
+    },
+    {
+        language: 'TypeScript JSX',
+        identifiers: 'typescriptreact',
+        suffix: ['tsx'],
+    },
+    {
+        language: 'Vue',
+        identifiers: 'vue',
+        suffix: ['vue'],
+    },
+    {
+        language: 'XML',
+        identifiers: 'xml',
+        suffix: ['xml'],
+    },
+];
 
 /**
  * 文件后缀到作用域
- * @param str 
- * @returns 
+ * @returns
+ * @param suffix
+ * @param f
  */
 function suffixToScope(suffix: string, f?: (s: string) => string) {
-    return scopeConfig.find(_ => _.suffix.includes(suffix))?.identifiers ?? (f ? f(suffix) ?? suffix : suffix);
+    return scopeConfig.find((_) => _.suffix.includes(suffix))?.identifiers ?? (f ? f(suffix) ?? suffix : suffix);
 }
