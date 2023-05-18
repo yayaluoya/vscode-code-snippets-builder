@@ -136,7 +136,9 @@ function byStrToItem(str: string, filePath: string, prefix: ArraifyT<string> = [
             .map((s) => suffixToScope(s, config.suffixToScope))
             .join(','),
         prefix: [...prefixs, ...filePathPrefixs, fileNameReg?.[1]].filter(Boolean).join('-'),
-        body: (strReg?.[1] || '').split(/\n\r|\r\n|\n|\r/g),
+        body: (strReg?.[1] || '').split(/\n\r|\r\n|\n|\r/g).map(_ => {
+            return _.replace(/\$(?!\d+)/g, '\\$');
+        }),
         description: otherReg?.[1] || '',
         ...JSONPar(otherReg?.[2] || '', {}),
     };
@@ -153,62 +155,62 @@ const scopeConfig: {
     /** 后缀列表 */
     suffix: string[];
 }[] = [
-    {
-        language: 'CSS',
-        identifiers: 'css',
-        suffix: ['css'],
-    },
-    {
-        language: 'HTML',
-        identifiers: 'html',
-        suffix: ['html'],
-    },
-    {
-        language: 'JavaScript',
-        identifiers: 'javascript',
-        suffix: ['js'],
-    },
-    {
-        language: 'JavaScript JSX',
-        identifiers: 'javascriptreact',
-        suffix: ['jsx'],
-    },
-    {
-        language: 'JSON',
-        identifiers: 'json',
-        suffix: ['json'],
-    },
-    {
-        language: 'Less',
-        identifiers: 'less',
-        suffix: ['less'],
-    },
-    {
-        language: 'SCSS',
-        identifiers: 'scss',
-        suffix: ['scss'],
-    },
-    {
-        language: 'TypeScript',
-        identifiers: 'typescript',
-        suffix: ['ts'],
-    },
-    {
-        language: 'TypeScript JSX',
-        identifiers: 'typescriptreact',
-        suffix: ['tsx'],
-    },
-    {
-        language: 'Vue',
-        identifiers: 'vue',
-        suffix: ['vue'],
-    },
-    {
-        language: 'XML',
-        identifiers: 'xml',
-        suffix: ['xml'],
-    },
-];
+        {
+            language: 'CSS',
+            identifiers: 'css',
+            suffix: ['css'],
+        },
+        {
+            language: 'HTML',
+            identifiers: 'html',
+            suffix: ['html'],
+        },
+        {
+            language: 'JavaScript',
+            identifiers: 'javascript',
+            suffix: ['js'],
+        },
+        {
+            language: 'JavaScript JSX',
+            identifiers: 'javascriptreact',
+            suffix: ['jsx'],
+        },
+        {
+            language: 'JSON',
+            identifiers: 'json',
+            suffix: ['json'],
+        },
+        {
+            language: 'Less',
+            identifiers: 'less',
+            suffix: ['less'],
+        },
+        {
+            language: 'SCSS',
+            identifiers: 'scss',
+            suffix: ['scss'],
+        },
+        {
+            language: 'TypeScript',
+            identifiers: 'typescript',
+            suffix: ['ts'],
+        },
+        {
+            language: 'TypeScript JSX',
+            identifiers: 'typescriptreact',
+            suffix: ['tsx'],
+        },
+        {
+            language: 'Vue',
+            identifiers: 'vue',
+            suffix: ['vue'],
+        },
+        {
+            language: 'XML',
+            identifiers: 'xml',
+            suffix: ['xml'],
+        },
+    ];
 
 /**
  * 文件后缀到作用域

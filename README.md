@@ -49,13 +49,13 @@ vscode-code-snippets-builder的所有命令😀:
 
 然后建一个目录，把模板文件都放里面，比如以下目录
 
-- list
-  - js
-    - console.js
-  - ts
-    - console.ts
-  - vue
-    - index.vue
+-   list
+    -   js
+        -   console.js
+    -   ts
+        -   console.ts
+    -   vue
+        -   index.vue
 
 在当前项目目录下执行 vcsb 命令打包
 打包完成后就会生成 vscode 的代码片段文件，当你输入 list-js-console 时就会在你要输入的地方智能键入 list/js/console.js 模板的内容了
@@ -76,3 +76,7 @@ a.b.c.d，后面的后缀表示要支持的文件类型，可以为多个。
 [<模板描述，只能是单行>]
 [< json 字符串，多行，生成 vcsode 模板文件时用来替换相应字段 ，一般用不到，这里只是为扩展或者特殊需求用>]
 ```
+
+## 注意事项
+
+模板内容中的$\d+字符串会被特殊处理，$(?!\d+)的则不会
