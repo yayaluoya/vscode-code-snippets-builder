@@ -4,19 +4,19 @@
  */
 let getConfig;
 try {
-    getConfig = require("$name").getConfig;
+  getConfig = require('$name').getConfig;
 } catch {
-    getConfig = (_) => _();
+  getConfig = (_) => _();
 }
 
 module.exports = getConfig(async () => {
-    /**
-     * 返回配置信息
-     */
-    return {
-        //
-    }
-})
+  /**
+   * 返回配置信息
+   */
+  return {
+    //
+  };
+});
 
 /**
  * 关于vscode代码片段的文档

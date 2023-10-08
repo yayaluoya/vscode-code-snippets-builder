@@ -6,5 +6,5 @@ import path from 'path';
  * @param _path
  */
 export function getComPath(_path: string = ''): string {
-    return path.normalize(_path).replace(/\\+/g, '/');
+  return path.normalize(_path).replace(/\\+/g, '/');
 }

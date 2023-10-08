@@ -29,7 +29,7 @@ export const configTemStr = fs.readFileSync(configTemUrl).toString().replace('$n
  * @returns
  */
 export function getDefConfig() {
-    return getConfig(defConfigUrl, '获取默认配置文件错误!');
+  return getConfig(defConfigUrl, '获取默认配置文件错误!');
 }
 
 /**
@@ -38,14 +38,14 @@ export function getDefConfig() {
  * @param a 提示信息
  */
 export function getConfig(_url: string, a?: string): Promise<IConfig> {
-    let config = getDefConfigInfo();
-    try {
-        config = require(_url);
-    } catch (e) {
-        if (a) {
-            console.log(chalk.red(a));
-            console.log(e);
-        }
+  let config = getDefConfigInfo();
+  try {
+    config = require(_url);
+  } catch (e) {
+    if (a) {
+      console.log(chalk.red(a));
+      console.log(e);
     }
-    return Promise.resolve(config);
+  }
+  return Promise.resolve(config);
 }

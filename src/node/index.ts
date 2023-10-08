@@ -8,7 +8,7 @@ import { start as start_ } from '../start';
  * @param f
  */
 export function getConfig(f: () => IConfig | Promise<IConfig>) {
-    return f();
+  return f();
 }
 
 /**
@@ -16,5 +16,5 @@ export function getConfig(f: () => IConfig | Promise<IConfig>) {
  * @param arg
  */
 export function start(...arg: Parameters<typeof start_>) {
-    start_(...arg);
+  start_(...arg);
 }
